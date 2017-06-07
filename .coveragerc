@@ -1,0 +1,3 @@
+[run]
+source = youtube
+omit = youtube/test*
