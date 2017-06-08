@@ -11,22 +11,41 @@
 	<div class="container">
 	  	<div class="jumbotron">
 			<form accept-charset="utf-8">
-				<input id="url" class="form-control" type="text" name="url" value="" placeholder="https://youtube.com/uapUlfanlLOJN">
-				<button type="button" id="solicitar" class="btn btn-primary" >Solicitar</button>
+				<div class="form-group input-group">
+				    <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-film"></i></span>
+				    <input id="url" class="form-control" type="text" name="url" value="" placeholder="https://youtube.com/uapUlfanlLOJN" aria-describedby="basic-addon1">
+				</div>
+				<div class="form-group">
+				    <button type="button" id="solicitar" class="btn btn-primary" >Baixar</button>
+				</div>
 			</form>
-			<div id="list-download">
-				
-			</div>
-            <h2>Baixados</h2>
             <div class="downloaded">
-                <ul>
-                {% for video in videos: %}
-                   <li><a target="_blank" href="/download/{{ video }}" >{{ video }} </a></li>
-                {% endfor %}
-                </ul>
+			  <table class="table">
+			  	<caption><h2>Vídeos Baixados</h2></caption>
+			  	<thead>
+			  		<tr>
+			  			<th>Nome</th>
+			  			<th>Tamanho</th>
+			  			<th></th>
+			  		</tr>
+			  	</thead>
+			  	<tbody>
+			  		{% for video in videos: %}
+			  		<tr>
+			  			<td class="col-md-8"><a target="_blank" href="/download/{{ video }}" >{{ video }}</a></td>
+			  			<td class="col-md-2">3mb</td>
+			  			<td class="col-md-2">
+			  				<a target="_blank" href="/download/{{ video }}" title="Visualizar vídeo" class="btn btn-info"><i class="glyphicon glyphicon-play-circle"></i></a>
+			  				<a target="_blank" href="/download/{{ video }}" title="Excluir vídeo" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+			  			</td>
+			  		</tr>
+			  		{% endfor %}
+			  	</tbody>
+			  </table>
             </div>
 		</div>
 	</div>
+
 
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
