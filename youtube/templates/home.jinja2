@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="{{request.static_url('youtube:static/pyramid-16x16.png')}}">
+	<title></title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	  	<div class="jumbotron">
+			<form accept-charset="utf-8">
+				<input id="url" class="form-control" type="text" name="url" value="" placeholder="https://youtube.com/uapUlfanlLOJN">
+				<button type="button" id="solicitar" class="btn btn-primary" >Solicitar</button>
+			</form>
+			<div id="list-download">
+				
+			</div>
+            <h2>Baixados</h2>
+            <div class="downloaded">
+                <ul>
+                {% for video in videos: %}
+                   <li><a target="_blank" href="/download/{{ video }}" >{{ video }} </a></li>
+                {% endfor %}
+                </ul>
+            </div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#solicitar").click(function(){
+				url_download = $("#url").val();
+				$.post('/youtube/youtube-dl', {url:url_download}, function(data){
+					html = '<ul>';
+					for(var i = 0; i < data.length; i++){
+						html += '<li><a target="_blank" href="/download/'+ data[i]  +'">'+ data[i] +'</li>'
+					}
+					html += '</ul>';
+					$("#list-download").html(html);
+				})
+			});
+
+		});
+	</script>
+
+
+</body>
+</html>

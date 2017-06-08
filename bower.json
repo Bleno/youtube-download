@@ -1,0 +1,21 @@
+{
+  "name": "youtube",
+  "authors": [
+    "Bleno <blenobok@gmail.com>"
+  ],
+  "description": "download video youtube",
+  "main": "",
+  "keywords": [
+    "youtube",
+    "download"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

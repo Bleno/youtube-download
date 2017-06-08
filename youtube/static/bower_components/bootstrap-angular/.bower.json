@@ -1,0 +1,29 @@
+{
+  "name": "bootstrap-angular",
+  "description": "",
+  "main": "./dist/bootstrap-ng.min.js",
+  "authors": [
+    "Nicolás Gonzálvez <cristopher.gonzalvez@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "version": "0.2.6",
+  "_release": "0.2.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.6",
+    "commit": "52d27b9a47ee6a635ac17af304730adf4fa64b28"
+  },
+  "_source": "https://git.sophilabs.io/guidelines/bootstrap-angular.git",
+  "_target": "^0.2.6",
+  "_originalSource": "bootstrap-angular",
+  "_direct": true
+}
