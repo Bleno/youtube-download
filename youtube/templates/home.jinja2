@@ -6,8 +6,24 @@
 	<link rel="shortcut icon" href="{{request.static_url('youtube:static/pyramid-16x16.png')}}">
 	<title></title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <style>
+          .modal {
+           display:    none;
+           position:   fixed;
+           z-index:    1000;
+           top:        0;
+           left:       0;
+           height:     100%;
+           width:      100%;
+           background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+          }
+        </style>
 </head>
 <body>
+<div id="modal" class="modal"></div>
 	<div class="container">
 	  	<div class="jumbotron">
 			<form accept-charset="utf-8">
@@ -19,6 +35,7 @@
 				    <button type="button" id="solicitar" class="btn btn-primary" >Baixar</button>
 				</div>
 			</form>
+            <div id="list-download"></div>
             <div class="downloaded">
 			  <table class="table">
 			  	<caption><h2>Vídeos Baixados</h2></caption>
@@ -32,11 +49,11 @@
 			  	<tbody>
 			  		{% for video in videos: %}
 			  		<tr>
-			  			<td class="col-md-8"><a target="_blank" href="/download/{{ video }}" >{{ video }}</a></td>
+			  			<td class="col-md-8"><a target="_blank" href="/download/{{ video[1] }}" >{{ video[0] }}</a></td>
 			  			<td class="col-md-2">3mb</td>
 			  			<td class="col-md-2">
-			  				<a target="_blank" href="/download/{{ video }}" title="Visualizar vídeo" class="btn btn-info"><i class="glyphicon glyphicon-play-circle"></i></a>
-			  				<a target="_blank" href="/download/{{ video }}" title="Excluir vídeo" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+			  				<a target="_blank" href="/download/{{ video[1] }}" title="Visualizar vídeo" class="btn btn-info"><i class="glyphicon glyphicon-play-circle"></i></a>
+			  				<a data-remove="{{ video[0] }}" href="javascript: void(0);" title="Excluir vídeo" class="btn btn-danger remove-video"><i class="glyphicon glyphicon-trash"></i></a>
 			  			</td>
 			  		</tr>
 			  		{% endfor %}
@@ -51,6 +68,18 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+
+        $(document).on({
+
+        ajaxStart: function () {                                
+            $("#modal").show();                                   
+        },
+        ajaxStop: function() {
+
+            $("#modal").hide();                    
+        }
+       });
 			$("#solicitar").click(function(){
 				url_download = $("#url").val();
 				$.post('/youtube/youtube-dl', {url:url_download}, function(data){
@@ -62,6 +91,15 @@
 					$("#list-download").html(html);
 				})
 			});
+
+                        $(".remove-video").click(function(){
+                           if(confirm("remover video?")){
+                             var name = $(this).data('remove');
+                             $.post("/youtube/remove", {"name": name}, function(data){
+                                 window.location.href = window.location.href;
+                             })
+                           }
+                        });
 
 		});
 	</script>

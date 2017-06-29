@@ -10,5 +10,6 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('youtube-dl', '/youtube-dl')
     config.add_route('download', '/download/{name}')
+    config.add_route('delete-file', '/remove')
     config.scan()
     return config.make_wsgi_app()
