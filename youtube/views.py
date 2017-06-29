@@ -8,7 +8,7 @@ import urllib
 
 @view_config(route_name='home', renderer='templates/home.jinja2')
 def my_view(request):
-    videos = [ f  for f in os.listdir('/tmp') if f.endswith('.mp4') or f.endswith('.webm')]
+    videos = [ f  for f in os.listdir('/tmp') ]
     videos = [(video ,urllib.parse.quote(video),) for video in videos ]
     return {'project': 'youtube', 'videos': videos }
 
